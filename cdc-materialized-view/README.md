@@ -10,7 +10,8 @@
 ### Code
 
 ``` python
-# Change stream pipeline
+
+# Change stream pipeline filter
 pipeline = [
     {'$match': {'operationType': 'insert'}},
     {'$match': {'fullDocument.accounts.type': 'checking'}},
@@ -21,7 +22,7 @@ pipeline = [
 for document in accounts_collection.watch(pipeline=pipeline, full_document='updateLookup'):
     result = "=== INSERT EVENT ===\n"
 
-    # incremental materialized view
+    # grab the document's unique ID
     document_id = document['fullDocument']['_id']
 
     # for each document that matches filter above
